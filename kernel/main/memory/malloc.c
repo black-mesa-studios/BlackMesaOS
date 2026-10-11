@@ -1,7 +1,6 @@
 #include "malloc.h"
 #include <stddef.h>
 #include <stdint.h>
-
 /* MIT License
 
 Copyright (c) 2023 Milinda Shehan
@@ -26,11 +25,10 @@ SOFTWARE.
 
 */
 
-#define ALIGNMENT   _Alignof(max_align_t)
-// header size rounded up so the payload that follows it is always aligned
+#define ALIGNMENT   alignof(max_align_t)
 #define HEADER_SIZE ((sizeof(memory) + ALIGNMENT - 1) & ~(ALIGNMENT - 1))
 
-_Alignas(max_align_t) char heap[heap_size];
+alignas(max_align_t) char heap[heap_size];
 memory *head = NULL;
 
 static size_t align_up(size_t size)

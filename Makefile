@@ -12,9 +12,17 @@ build:
 	mkdir out/
 
 	$(ASM) $(ASM_FLAGS) kernel/boot/boot.asm -o out/boot.o
+	$(ASM) $(ASM_FLAGS) kernel/main/theweirdstuff/interrupts.asm -o out/interrupts.o
+
 	$(G++) $(GXX_FLAGS) kernel/main/kernel.cpp -o out/kernel.o
 	$(G++) $(GXX_FLAGS) kernel/main/gfx/con.c -o out/con.o
 	$(G++) $(GXX_FLAGS) kernel/main/gfx/vga.c -o out/vga.o
+	$(G++) $(GXX_FLAGS) kernel/main/theweirdstuff/idt.cpp -o out/idt.o
+	$(G++) $(GXX_FLAGS) kernel/main/theweirdstuff/pit.c -o out/pit.o
+	$(G++) $(GXX_FLAGS) kernel/main/theweirdstuff/kbhandler.c -o out/kbhandler.o
+	$(G++) $(GXX_FLAGS) kernel/main/memory/mem.c -o out/mem.o
+	$(G++) $(GXX_FLAGS) kernel/main/memory/malloc.c -o out/malloc.o
+	$(G++) $(GXX_FLAGS) kernel/main/input/read.c -o out/read.o
 
 	mkdir -p iso/boot/grub
 

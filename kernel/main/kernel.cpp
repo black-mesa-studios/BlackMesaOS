@@ -1,11 +1,19 @@
 #include "gfx/con.h"
 #include "gfx/vga.h"
+#include "theweirdstuff/idt.h"
+#include "theweirdstuff/pit.h"
+#include "input/read.h"
+#include "memory/malloc.h"
+#include "memory/mem.h"
+#include "util/strutil.h"
 
 extern "C" void kmain(void) {
-    for(;;) {
-        for(int i = 0; i < 0x0F; i++) {
-            SET_COLOUR(i);
-            very_advanced_print("BMOS ON TOP!\n");
-        }
+    static uint16_t kcs = 0x08;
+    init_interrupts(kcs);
+    char* input = (char *)cmalloc(256);
+    input[0] = (char)0;
+    while(strncmp(input, "stop", 5)!=0) {
+        read(input, 256, 1);
     }
+    cfree(input);
 }
